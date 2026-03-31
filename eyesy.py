@@ -9,6 +9,7 @@ import glob
 import sys
 import time
 import json
+import platform
 import helpers
 import file_operations
 import csv
@@ -19,11 +20,15 @@ class Eyesy:
 
     def __init__(self):
         self.VERSION = "3.1"
-        # config stuff 
-        self.GRABS_PATH = "/sdcard/Grabs/"
-        self.MODES_PATH = "/sdcard/Modes/"
-        self.SCENES_PATH = "/sdcard/Scenes/"
-        self.SYSTEM_PATH = "/sdcard/System/"
+        # config stuff
+        if platform.system() == "Windows":
+            _data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+        else:
+            _data_dir = "/sdcard"
+        self.GRABS_PATH = os.path.join(_data_dir, "Grabs", "")
+        self.MODES_PATH = os.path.join(_data_dir, "Modes", "")
+        self.SCENES_PATH = os.path.join(_data_dir, "Scenes", "")
+        self.SYSTEM_PATH = os.path.join(_data_dir, "System", "")
        
         self.COMPVIDS = ["NTSC","NTSC-J","NTSC-443","PAL","PAL-M","PAL-N","PAL60","SECAM"]
 
@@ -279,7 +284,7 @@ class Eyesy:
         config_file = self.SYSTEM_PATH + "config.json"
         if not(os.path.isdir(self.SYSTEM_PATH)) :
             print('No system folder, creating...')
-            os.system('mkdir ' + self.SYSTEM_PATH)
+            os.makedirs(self.SYSTEM_PATH, exist_ok=True)
 
         try:
             # Load configuration, raising errors for file or JSON issues
@@ -591,7 +596,7 @@ class Eyesy:
     def load_grabs(self):
         if not(os.path.isdir(self.GRABS_PATH)) :
             print('No grab folder, creating...')
-            os.system('mkdir ' + self.GRABS_PATH)
+            os.makedirs(self.GRABS_PATH, exist_ok=True)
         print('loading recent grabs...')
         self.lastgrab = None
         self.lastgrab_thumb = None
