@@ -346,6 +346,72 @@ ASCII顔文字が中心から全方向に爆発。トリガーごとにセット
 | 4 | foreground color |
 | 5 | background color |
 
+#### ITBS - S - Sine Prism
+複数のサイン波をプリズムのように色分解して重ねる。各レイヤーが異なる位相・周波数で波打ち、グロウ＋白い光点で描画。残像で干渉模様が浮かぶ。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 波の本数 |
+| 2 | 振幅 |
+| 3 | 周波数 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Dot Grid Pulse
+ミニマルなドットグリッドがオーディオで呼吸する。中心から波紋が広がり、各ドットの半径がオーディオ帯域に連動してリズミカルに膨縮。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | グリッドサイズ |
+| 2 | ドット最大半径 |
+| 3 | 波紋の速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Iso Blocks
+アイソメトリックブロックがビートで積み上がる。3面シェーディング＋白アウトライン。着地後もオーディオで微妙にバウンス。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | ブロックサイズ |
+| 2 | 列数 |
+| 3 | 落下速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Candy Tiles
+カラフルな角丸タイルがオーディオでスケールする。チェッカーボード風の配色で、音量が大きいタイルが明るくハイライト。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | グリッドサイズ |
+| 2 | 角丸の丸み |
+| 3 | リアクション強度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Micro Waves
+極小ドットで波形をプロットするポップなオシロスコープ。複数レイヤーの波形を散らし、音量が大きい箇所は白く光る。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | ドットサイズ |
+| 2 | 波形の数 |
+| 3 | 散らし量 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Confetti Machine
+ビートでミニマルな幾何学コンフェティ（矩形・円・三角・ダイヤ）が舞い散る。回転＋フラッター物理演算付き。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | パーティクル数 |
+| 2 | サイズ |
+| 3 | 重力 |
+| 4 | foreground color |
+| 5 | background color |
+
 ### 純正モード
 
 Critter & Guitariの[EYESY_Modes_OSv3](https://github.com/critterandguitari/EYESY_Modes_OSv3)から108モード同梱。
