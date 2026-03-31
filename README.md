@@ -96,6 +96,15 @@ DAWの再生音をSHRTYに送りたい場合は、ループバック機能やBla
 
 アサイン可能パラメータ: Knob 1-5, Auto Clear, FG Palette, BG Palette, Mode
 
+### 録画
+
+| Key | Function |
+|-----|----------|
+| P | 録画 開始/停止 |
+
+`data/Recordings/` にMP4で保存される。録画中は右上に赤い **REC** インジケーターが表示される。
+ffmpegが必要（`brew install ffmpeg`）。
+
 ### その他
 
 | Key | Function |
@@ -475,6 +484,72 @@ ASCII顔文字が中心から全方向に爆発。トリガーごとにセット
 | 1 | バー数 |
 | 2 | バー幅 |
 | 3 | リフレクション量 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Arc Reactor
+円弧が重なり合い、オーディオで弧の長さと半径が変化。端に白い光点。残像で多層的なパターン。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 弧の数 |
+| 2 | 太さ |
+| 3 | 回転速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Bounce Line
+波形が上下のエッジで跳ね返り続ける弾性物理演算。残像でリボン状の軌跡が生まれる。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 線の数 |
+| 2 | 弾力 |
+| 3 | 残像 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Helix Spin
+二重螺旋がオーディオで膨張・収縮しながら回転。横棒でDNA風。2色の螺旋＋グロウ。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 巻き数 |
+| 2 | 半径 |
+| 3 | 回転速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Waveform Grid
+波形を行ごとに格子状に並べて面的に展開。各行で位相をずらし、うねりのあるオーディオサーフェスに。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 行数 |
+| 2 | 振幅 |
+| 3 | 位相ずれ |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Polar Flower
+波形を極座標で描画し、花のようなパターンを生成。3レイヤー重ねでフィル＋アウトライン。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 花弁数 |
+| 2 | 半径 |
+| 3 | 回転速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Glitch Bars
+水平バーが波形データで左右にずれるデジタルグリッチ。ビートで色反転＋スキャンラインノイズ。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | バー数 |
+| 2 | ずれ量 |
+| 3 | ノイズ量 |
 | 4 | foreground color |
 | 5 | background color |
 
