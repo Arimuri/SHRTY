@@ -114,6 +114,8 @@ class Eyesy:
         # SHRTY: MIDI learn
         self.midi_learn_active = False
         self.midi_learn_param_index = 0
+        self.midi_learn_last_cc = -1
+        self.midi_learn_last_assign_time = 0.0
         self.MIDI_LEARN_PARAMS = [
             ("knob1_cc", "Knob 1"),
             ("knob2_cc", "Knob 2"),
@@ -461,6 +463,8 @@ class Eyesy:
         self.midi_learn_active = not self.midi_learn_active
         if self.midi_learn_active:
             self.midi_learn_param_index = 0
+            self.midi_learn_last_cc = -1
+            self.midi_learn_last_assign_time = 0.0
 
     def midi_learn_next_param(self):
         if self.midi_learn_active:
@@ -473,8 +477,14 @@ class Eyesy:
     def midi_learn_assign(self, cc_number):
         if not self.midi_learn_active:
             return
+        now = time.time()
+        # Same CC registered recently: ignore until a different CC arrives or 1.5 s pass
+        if cc_number == self.midi_learn_last_cc and (now - self.midi_learn_last_assign_time) < 1.5:
+            return
         config_key, name = self.MIDI_LEARN_PARAMS[self.midi_learn_param_index]
         self.config[config_key] = cc_number
+        self.midi_learn_last_cc = cc_number
+        self.midi_learn_last_assign_time = now
         print(f"MIDI Learn: assigned CC {cc_number} to {name} ({config_key})")
         self.save_config_file()
         self.midi_learn_next_param()
