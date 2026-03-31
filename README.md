@@ -22,11 +22,10 @@ Requires Python 3.9+.
 
 ### Audio Input
 
-SHRTY uses the system default audio input (mic / line-in).
+SHRTYはシステムデフォルトのオーディオ入力（マイク / ライン入力）を使用します。
+オーディオインターフェースの設定は環境によって異なるため、各自のセットアップに合わせて適宜設定してください。
 
-**Babyface Pro**: TotalMix FXでLoopbackをONにすれば、DAWの再生音をそのままSHRTYに送れる。
-
-**BlackHole**: `brew install blackhole-2ch` でインストール後、Audio MIDI設定で「複数出力装置」を作成し、システム出力に設定。SHRTYの入力にBlackHoleを使用。
+DAWの再生音をSHRTYに送りたい場合は、ループバック機能やBlackHole等の仮想オーディオデバイスを活用すると便利です。
 
 ---
 
@@ -171,10 +170,181 @@ SHRTY uses the system default audio input (mic / line-in).
 | 4 | foreground color |
 | 5 | background color |
 
-#### ITBS - S - DVD Bounce / Derpy Dog / Screaming Face / Silly Matrix
-#### ITBS - T - Dancing Kaomoji / Emoji Party
+#### ITBS - S - DVD Bounce
+あのDVDスクリーンセーバーのパロディ。「DVD」ロゴが壁で跳ね返り、コーナーヒットで「CORNER!」フラッシュ。右上にヒットカウンター表示。
 
-オリジナルモード。
+| Knob | Parameter |
+|------|-----------|
+| 1 | 速度 |
+| 2 | ロゴサイズ |
+| 3 | トレイルの長さ |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Derpy Dog
+オーディオに反応するアホ犬。音量で舌が伸び、体が揺れ、大音量で「BORK BORK!」と吠える。よだれ・吠えパーティクル付き。耳は物理演算でぶらぶら揺れる。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 犬のサイズ |
+| 2 | 反応の感度 |
+| 3 | 揺れの強さ |
+| 4 | foreground color (よだれ・吠え) |
+| 5 | background color |
+
+#### ITBS - S - Screaming Face
+オーディオレベルに応じて表情が変わる顔。静かなら「...」、大音量で口が開いて「AAAAA!」と叫ぶ。口の中に音声波形が見える。汗・叫びパーティクル付き。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 顔のサイズ |
+| 2 | 反応の感度 |
+| 3 | 揺れの強さ |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Silly Matrix
+マトリックス風の文字雨。コードではなくASCII記号が降ってくる。先頭文字は白く光り、トリガーで全文字がシャッフル＋フラッシュ。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 密度 |
+| 2 | 文字サイズ |
+| 3 | 残像の強さ |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Neon Pulse
+中心から放射状に伸びるネオンライン。各ラインの長さがオーディオ周波数帯に対応し、先端に白い光点。グロウレイヤー付き。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | ライン本数 |
+| 2 | ラインの太さ |
+| 3 | 回転速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Laser Grid
+シンセウェイブ風パースペクティブグリッド。消失点に向かう縦線と手前にスクロールする横線がオーディオで歪む。地平線上に太陽グロウ。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | グリッド密度 |
+| 2 | ワープ量 |
+| 3 | スクロール速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Ribbon Dance
+なめらかなリボンがオーディオ周波数帯に合わせて波打つ。複数のサイン波を重ね、グロウ＋白い芯線で描画。残像で軌跡が残る。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | リボン本数 |
+| 2 | 振幅 |
+| 3 | なめらかさ |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Wave Stack
+波形を奥行き付きで積み重ね表示。各レイヤーがオーディオバッファの異なる帯域をサンプリングし、パララックス効果で奥の波はゆっくり動く。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 波の本数 |
+| 2 | 振幅 |
+| 3 | 間隔 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Strobe Cut
+ビートで幾何学図形（矩形・三角・円・線）がフラッシュ＋回転しながら出現。ハイコントラストでストロボ的な演出。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 図形の数 |
+| 2 | 最大サイズ |
+| 3 | 回転速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Dancing Kaomoji
+顔文字 `(^_^)` `\(^o^)/` `m(_ _)m` 等がトリガーで出現し、物理演算で跳ねて踊る。壁・床で反射。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 出現数 (1〜5個) |
+| 2 | サイズ |
+| 3 | 重力 (ふわふわ〜ずっしり) |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Emoji Party
+ASCII顔文字が中心から全方向に爆発。トリガーごとにセット（happy / sad / crazy / cool / symbols）がランダム切替。オーディオで地面の顔文字が再び跳ねる。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 出現数 |
+| 2 | サイズ |
+| 3 | 重力 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Pop Rings
+ビート検出で中心から同心円リングが拡大。ポップアートカラーでグロウ付き。リングの太さと速度は音量で変動。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | リングの太さ |
+| 2 | 拡大速度 |
+| 3 | リング最大数 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Pixel Rain
+レトロなドット絵風ピクセルが雨のように降る。各ピクセルの落下速度はオーディオ帯域に連動。ドロップシャドウ＋ハイライト付き。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | ピクセルサイズ |
+| 2 | 落下速度 |
+| 3 | 密度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Bubble Pop
+カラフルな泡が下から浮上し、ビートで弾ける。泡は半透明でハイライト付き。弾けるとリング状のポップアニメーション。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 泡のサイズ |
+| 2 | 浮上速度 |
+| 3 | 密度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Hex Grid
+六角形グリッドの各セルがオーディオに反応してサイズ変動。セルごとにパレットから色を取得し、半透明で重なる。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 六角形サイズ |
+| 2 | 間隔 |
+| 3 | 反応度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - T - Star Burst
+ビートで中心から星型パーティクルが放射状に飛散。残像でカレイドスコープ的な軌跡パターンが生まれる。中心にグロウ。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 飛散力 |
+| 2 | 星の数 |
+| 3 | トレイルの長さ |
+| 4 | foreground color |
+| 5 | background color |
 
 ### 純正モード
 
