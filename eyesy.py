@@ -3,7 +3,7 @@ import random
 import math
 import pygame
 import traceback
-import imp
+import importlib.util
 import os
 import glob
 import sys
@@ -556,7 +556,10 @@ class Eyesy:
             mode_path = self.MODES_PATH+mode_name+'/main.py'
             print(mode_path)
             try :
-                imp.load_source(mode_name, mode_path)
+                spec = importlib.util.spec_from_file_location(mode_name, mode_path)
+                mod = importlib.util.module_from_spec(spec)
+                sys.modules[mode_name] = mod
+                spec.loader.exec_module(mod)
                 self.mode_names.append(mode_name)
                 got_a_mode = True
             except Exception as e:
@@ -574,7 +577,10 @@ class Eyesy:
             del(sys.modules[self.mode]) 
         print("deleted module, reloading")
         try :
-            imp.load_source(self.mode, self.mode_root+'/main.py')
+            spec = importlib.util.spec_from_file_location(self.mode, self.mode_root+'/main.py')
+            mod = importlib.util.module_from_spec(spec)
+            sys.modules[self.mode] = mod
+            spec.loader.exec_module(mod)
             print("reloaded")
         except Exception as e:
             self.error = traceback.format_exc()

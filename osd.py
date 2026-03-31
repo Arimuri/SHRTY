@@ -1,6 +1,5 @@
 import pygame
 import socket
-import imp
 import subprocess
 import re
 
