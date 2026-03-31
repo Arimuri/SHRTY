@@ -60,9 +60,73 @@ KNOB_KEYS_DOWN = {
 KNOB_STEP = 0.02
 
 audio_process = None
+video_recorder = None
+
+class VideoRecorder:
+    """Records pygame screen to MP4 via ffmpeg subprocess pipe."""
+    def __init__(self, width, height, fps, output_path):
+        import subprocess as sp
+        self.output_path = output_path
+        self.process = sp.Popen([
+            'ffmpeg', '-y',
+            '-f', 'rawvideo',
+            '-vcodec', 'rawvideo',
+            '-s', f'{width}x{height}',
+            '-pix_fmt', 'rgb24',
+            '-r', str(fps),
+            '-i', '-',
+            '-an',
+            '-vcodec', 'libx264',
+            '-preset', 'ultrafast',
+            '-crf', '18',
+            '-pix_fmt', 'yuv420p',
+            output_path
+        ], stdin=sp.PIPE, stderr=sp.DEVNULL)
+        self.alive = True
+        print(f"SHRTY: recording started → {output_path}")
+
+    def write_frame(self, surface):
+        if self.alive:
+            try:
+                data = pygame.image.tostring(surface, "RGB")
+                self.process.stdin.write(data)
+            except (BrokenPipeError, OSError):
+                self.alive = False
+
+    def stop(self):
+        if self.alive:
+            self.alive = False
+            try:
+                self.process.stdin.close()
+                self.process.wait(timeout=5)
+            except Exception:
+                self.process.kill()
+            print(f"SHRTY: recording saved → {self.output_path}")
+
+
+def toggle_recording(ey, hwscreen):
+    global video_recorder
+    if video_recorder and video_recorder.alive:
+        video_recorder.stop()
+        video_recorder = None
+    else:
+        rec_dir = os.path.join(DATA_DIR, "Recordings")
+        os.makedirs(rec_dir, exist_ok=True)
+        filenum = 0
+        path = os.path.join(rec_dir, f"{filenum}.mp4")
+        while os.path.isfile(path):
+            filenum += 1
+            path = os.path.join(rec_dir, f"{filenum}.mp4")
+        video_recorder = VideoRecorder(
+            int(ey.xres), int(ey.yres), 30, path
+        )
+
 
 def exitexit(code):
-    global audio_process
+    global audio_process, video_recorder
+    if video_recorder and video_recorder.alive:
+        video_recorder.stop()
+        video_recorder = None
     print("SHRTY: exiting...")
     pygame.display.quit()
     pygame.quit()
@@ -115,6 +179,10 @@ def handle_key_events(ey):
                     ey.midi_learn_active = False
                 else:
                     exitexit(0)
+
+            # P: toggle recording
+            if event.key == pygame.K_p:
+                toggle_recording(ey, None)
 
             # M: toggle MIDI learn
             if event.key == pygame.K_m:
@@ -317,6 +385,7 @@ def main():
     print("  Q/W/E/R/T: knobs up, A/S/D/F/G: knobs down")
     print("  TAB: dual mode  Z/X: mode B prev/next  C: blend  V/B: mix")
     print("  M: MIDI learn  LEFT/RIGHT: param  ESC: exit learn")
+    print("  P: recording start/stop")
 
     while True:
         try:
@@ -451,6 +520,16 @@ def main():
                     exitexit(1)
                 if not ey.menu_mode:
                     hwscreen.fill(ey.bg_color)
+
+            # Recording: write frame & show indicator
+            if video_recorder and video_recorder.alive:
+                video_recorder.write_frame(hwscreen)
+                # Red dot + "REC" indicator (top-right)
+                rec_x = int(ey.xres) - 80
+                pygame.draw.circle(hwscreen, (255, 30, 30), (rec_x, 16), 7)
+                if ey.font:
+                    rec_text = ey.font.render("REC", True, (255, 30, 30))
+                    hwscreen.blit(rec_text, (rec_x + 14, 8))
 
             pygame.display.flip()
             ey.clear_flags()
