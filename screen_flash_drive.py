@@ -6,6 +6,8 @@ import pygame
 from screen import Screen
 from widget_menu import WidgetMenu, MenuItem
 
+SHRTY_DIR = os.path.dirname(os.path.abspath(__file__))
+
 class ScreenFlashDrive(Screen):
     def __init__(self, eyesy):
         super().__init__(eyesy)
@@ -21,8 +23,8 @@ class ScreenFlashDrive(Screen):
             MenuItem('◀  Exit', self.goto_home)
         ])
         self.menu.off_y = 43
-        self.font = pygame.font.Font("font.ttf", 16)
-        self.font_small = pygame.font.Font("font.ttf", 12)
+        self.font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 16)
+        self.font_small = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 12)
         self.logs = []
 
     def before(self):

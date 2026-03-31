@@ -2,6 +2,9 @@ import pygame
 import socket
 import subprocess
 import re
+import os
+
+SHRTY_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def draw_knob_slider_480(screen, eyesy, offx, offy, index) :
     # color based on knob seq state 
@@ -79,14 +82,14 @@ def draw_gain_bar(screen, eyesy, offx, offy):
 def loading_banner(screen, stuff) :
     screen.fill((0,0,0)) 
         
-    font = pygame.font.Font("./font.ttf", 80)
+    font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 80)
     text = font.render("EYESY", True, (255,255,255))
     textpos = text.get_rect()
     textpos.centerx = screen.get_width() / 2
     textpos.centery = screen.get_height() /2
     screen.blit(text, textpos)
 
-    font = pygame.font.Font("./font.ttf", 16)
+    font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 16)
     text = font.render(stuff, True, (255,255,255))
     text_rect = text.get_rect()
     text_rect.x = 20
@@ -289,7 +292,7 @@ def render_overlay_480(screen, eyesy) :
     
     # osd, errors
     i = 0
-    font = pygame.font.Font("font.ttf", 16)
+    font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 16)
     for errorline in eyesy.error.splitlines() :
         errormsg = font.render(errorline, True, eyesy.LGRAY, eyesy.RED) 
         text_rect.x = 50
