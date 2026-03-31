@@ -412,6 +412,72 @@ ASCII顔文字が中心から全方向に爆発。トリガーごとにセット
 | 4 | foreground color |
 | 5 | background color |
 
+#### ITBS - S - Ring Pulse
+波形データで同心円リングの半径が変わるミニマルなパルスリング。各リングがオーディオで有機的に変形し、残像で催眠的なパターンに。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | リング数 |
+| 2 | 太さ |
+| 3 | 回転速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Dot Orbit
+ドットが軌道上を周回。各軌道の半径がオーディオ帯域で脈動し、音量が大きいドットは白く光る。グロウ付き。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 軌道数 |
+| 2 | ドット数/軌道 |
+| 3 | 速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Pixel Scope
+太ピクセルで波形を描画するレトロポップなオシロスコープ。中心から上下にバーが伸び、ミラーリフレクション付き。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | ピクセルサイズ |
+| 2 | 波形の高さ |
+| 3 | ミラー量 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Mirror Sine
+サイン波を四方にミラーリングして万華鏡的なシンメトリーを生成。残像で複雑な干渉パターンが浮かぶ。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 波の本数 |
+| 2 | 振幅 |
+| 3 | 速度 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Pluck String
+弦楽器のように張られた線がオーディオ帯域で振動。各弦が異なる帯域に対応し、両端のブリッジで固定。エレガントで音楽的。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | 弦の数 |
+| 2 | テンション (振幅) |
+| 3 | 減衰 |
+| 4 | foreground color |
+| 5 | background color |
+
+#### ITBS - S - Spectrum Bars
+スタイリッシュなスペクトラムバー。角丸＋グロウ＋リフレクション。スムージング付きで滑らかに動く。
+
+| Knob | Parameter |
+|------|-----------|
+| 1 | バー数 |
+| 2 | バー幅 |
+| 3 | リフレクション量 |
+| 4 | foreground color |
+| 5 | background color |
+
 ### 純正モード
 
 Critter & Guitariの[EYESY_Modes_OSv3](https://github.com/critterandguitari/EYESY_Modes_OSv3)から108モード同梱。
