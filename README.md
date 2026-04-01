@@ -6,7 +6,7 @@ Based on [EYESY_OS](https://github.com/critterandguitari/EYESY_OS) by Critter & 
 ## Setup
 
 ```bash
-# macOS / Linux
+# macOS
 cd SHRTY
 ./run.sh
 
