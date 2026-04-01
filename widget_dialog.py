@@ -1,4 +1,7 @@
 import pygame
+import os
+
+SHRTY_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def ok_callback():
     print("OK")
@@ -29,7 +32,7 @@ class WidgetDialog():
         self.selected_index = 0
         # Initialize font
         pygame.font.init()
-        self.font = pygame.font.Font("font.ttf", 16)
+        self.font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 16)
 
     def draw_keyboard(self, surface):
         keys = self.lower_keys

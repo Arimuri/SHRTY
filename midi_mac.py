@@ -4,7 +4,20 @@ Replaces the Linux ttymidi + USB MIDI setup.
 """
 import time
 import traceback
+import platform
 import mido
+
+def _excluded_port_prefixes():
+    """Return port name prefixes that represent virtual/system ports to skip."""
+    prefixes = ["System"]
+    if platform.system() == "Linux":
+        # ALSA loopback port present on most Linux systems
+        prefixes.append("Midi Through")
+    elif platform.system() == "Windows":
+        # Windows built-in software synth (output-only, but guard just in case)
+        prefixes.append("Microsoft MIDI Mapper")
+        prefixes.append("Microsoft GS Wavetable Synth")
+    return tuple(prefixes)
 
 input_port_usb = None
 midi_clock_count = 0
@@ -67,7 +80,8 @@ def init():
     global input_port_usb
     input_ports = mido.get_input_names()
     print(f"SHRTY MIDI: available ports: {input_ports}")
-    valid_port = next((port for port in input_ports if not port.startswith(("Midi Through", "System"))), None)
+    excluded = _excluded_port_prefixes()
+    valid_port = next((port for port in input_ports if not port.startswith(excluded)), None)
     if valid_port:
         try:
             print(f"SHRTY MIDI: opening {valid_port}")

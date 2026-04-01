@@ -5,3 +5,4 @@ data/Grabs/
 data/Scenes/
 data/System/config.json
 .DS_Store
+.claude/

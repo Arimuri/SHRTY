@@ -1,4 +1,7 @@
 import pygame
+import os
+
+SHRTY_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class WidgetKeyboard():
 
@@ -8,7 +11,7 @@ class WidgetKeyboard():
         self.text_box_text = ""
         self.keyboard_surface = pygame.Surface((400, 200))
         self.keyboard_surface.fill((0, 0, 0))
-        self.textbox_font = pygame.font.Font("font.ttf", 20)
+        self.textbox_font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 20)
         self.connect_callback = connect_callback
         self.cancel_callback = cancel_callback
 
@@ -52,8 +55,8 @@ class WidgetKeyboard():
 
         # Initialize font
         pygame.font.init()
-        self.font = pygame.font.Font("font.ttf", 20)
-        self.font16 = pygame.font.Font("font.ttf", 16)
+        self.font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 20)
+        self.font16 = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 16)
 
     def draw_keyboard(self, surface):
         """

@@ -1,12 +1,15 @@
 # screen.py
 import pygame
+import os
+
+SHRTY_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Screen:
     def __init__(self, eyesy):
         self.eyesy = eyesy
         self.title = "My Cool Screen"
         self.footer = "Footer"
-        self.font = pygame.font.Font("font.ttf", 16)
+        self.font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 16)
 
     def handle_events(self):
         """Handle input events."""

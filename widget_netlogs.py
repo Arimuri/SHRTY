@@ -2,11 +2,14 @@ import pygame
 import subprocess
 import time
 import re
+import os
+
+SHRTY_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class WidgetNetlogs():
     def __init__(self, eyesy):
         self.eyesy = eyesy
-        self.font = pygame.font.Font("font.ttf", 12)
+        self.font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 12)
         self.logs = []
         self.last_log_time = 0  # Timestamp of the last log fetch
         self.x_offset = 10

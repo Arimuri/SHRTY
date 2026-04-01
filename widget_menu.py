@@ -1,4 +1,7 @@
 import pygame
+import os
+
+SHRTY_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class MenuItem:
     def __init__(self, text, action):
@@ -18,7 +21,7 @@ class WidgetMenu:
         self.eyesy = eyesy
         self.items = items  # List of MenuItem instances
         self.selected_index = 0
-        self.font = pygame.font.Font("font.ttf", 16)
+        self.font = pygame.font.Font(os.path.join(SHRTY_DIR, "font.ttf"), 16)
         self.off_x = 50
         self.off_y = 70
         self.visible_items = 6  # Number of menu items visible at a time

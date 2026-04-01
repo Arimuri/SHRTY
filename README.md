@@ -1,13 +1,18 @@
 # SHRTY
 
-EYESY visual synth for macOS.
+EYESY visual synth for macOS / Windows.
 Based on [EYESY_OS](https://github.com/critterandguitari/EYESY_OS) by Critter & Guitari (BSD 3-Clause License).
 
 ## Setup
 
 ```bash
-cd ITBS_EYESY
+# macOS
+cd SHRTY
 ./run.sh
+
+# Windows
+cd SHRTY
+run.bat
 ```
 
 Initial setup creates a Python venv and installs dependencies automatically.
@@ -568,10 +573,10 @@ Critter & Guitariの[EYESY_Modes_OSv3](https://github.com/critterandguitari/EYES
 ## ファイル構成
 
 ```
-ITBS_EYESY/
+SHRTY/
   shrty.py          — メインエントリポイント
-  sound_mac.py      — macOS音声入力 (sounddevice)
-  midi_mac.py       — macOS MIDI入力 (python-rtmidi)
+  sound_mac.py      — 音声入力 (sounddevice)
+  midi_mac.py       — MIDI入力 (python-rtmidi)
   eyesy.py          — EYESYエンジン (状態管理)
   osd.py            — OSD/メニュー描画
   run.sh            — 起動スクリプト
