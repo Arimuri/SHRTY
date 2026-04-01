@@ -4,18 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SHRTY is a standalone visual synthesizer for macOS (Windows porting in progress), based on [EYESY_OS](https://github.com/critterandguitari/EYESY_OS) by Critter & Guitari. It captures real-time audio and MIDI input and renders responsive visuals using 150+ dynamically-loaded Python/Pygame modes.
+SHRTY is a standalone visual synthesizer for macOS and Windows, based on [EYESY_OS](https://github.com/critterandguitari/EYESY_OS) by Critter & Guitari. It captures real-time audio and MIDI input and renders responsive visuals using 150+ dynamically-loaded Python/Pygame modes.
 
 ## Running the Application
 
 ```bash
 # macOS / Linux
 ./run.sh
+
+# Windows
+run.bat
 ```
 
-`run.sh` automatically creates a Python 3.9+ venv, installs `requirements.txt`, and launches `shrty.py`. There is no formal test suite; the app includes a menu-accessible "Test Screen" for hardware testing.
-
-For Windows, `run.bat` or `run.ps1` does not yet exist — see `TODO_windows.md` for the full porting checklist.
+Both scripts automatically create a Python 3.9+ venv, install `requirements.txt`, and launch `shrty.py`. There is no formal test suite; the app includes a menu-accessible "Test Screen" for hardware testing.
 
 ## Architecture
 
@@ -42,6 +43,14 @@ def draw(screen, eyesy): ...
 
 Modes are loaded at runtime via `importlib.util`. They access audio buffers, MIDI state, and knob values through the `eyesy` object. Mode naming convention: `[Creator] - [Type] - [Name]`.
 
+Key `eyesy` properties available in modes:
+- `eyesy.knob1`–`eyesy.knob5`: `0.0`–`1.0`
+- `eyesy.audio_in[0:99]`: audio buffer (`-32768`–`32767`)
+- `eyesy.audio_peak`: peak value
+- `eyesy.color_picker(t)` / `eyesy.color_picker_bg(t)`: palette color at `t` (`0.0`–`1.0`)
+- `eyesy.trig`: trigger boolean
+- `eyesy.midi_notes[0:127]`: MIDI note states
+
 ### Audio Pipeline
 
 `sound_mac.py` runs audio capture in a separate `multiprocessing.Process` to avoid blocking the 30fps render loop, writing to shared memory buffers that `eyesy.py` reads each frame.
@@ -50,15 +59,8 @@ Modes are loaded at runtime via `importlib.util`. They access audio buffers, MID
 
 TAB toggles a second mode running simultaneously, blended with the primary using Add / Multiply / Crossfade blend modes (C key cycles, V/B adjust mix ratio).
 
-## Windows Porting Status
+### Platform Handling
 
-All known issues are tracked in `TODO_windows.md`. Key areas:
+`eyesy.py` uses `platform.system() == "Windows"` to branch data paths (`data/` relative to the script vs. `/sdcard` on Linux). System-management screens (WiFi, Video Settings, Hardware Test) fail gracefully on non-Linux via broad `except Exception` handling in `shrty.py`.
 
-1. **Startup script** — Need `run.bat`/`run.ps1` (`source venv/bin/activate` → `venv\Scripts\activate.bat`)
-2. **Data paths** — `eyesy.py` lines 23–26 hardcode `/sdcard/...`; need `platform.system()` branching to use `os.path.join(os.path.dirname(__file__), "data", ...)`
-3. **`os.system('mkdir ...')`** — `eyesy.py` lines 282, 594; replace with `os.makedirs(..., exist_ok=True)`
-4. **Font paths** — Many files use relative `"font.ttf"`; should use `os.path.join(SHRTY_DIR, "font.ttf")` like `shrty.py` already does. Affected: `osd.py`, `screen.py`, `screen_flash_drive.py`, `widget_*.py`
-5. **`file_operations.py`** — `BASE_DIR = "/"` is meaningless on Windows; `os.system("unzip")`/`os.system("zip")` must be replaced with Python's `zipfile` module; all path joins need `os.path.join()`
-6. **MIDI filtering** — `midi_mac.py:70` filters `"Midi Through"` (Linux-only port name); Windows needs platform-specific port exclusion patterns
-
-System-management screens (WiFi, Video Settings, Hardware Test) fail gracefully on non-Linux — the broad `except Exception` handler in `shrty.py:537` catches Linux-only command errors, matching macOS behavior. No fix needed.
+Font paths use `os.path.join(SHRTY_DIR, "font.ttf")` for cross-platform compatibility. `file_operations.py` uses Python's `zipfile` module (not shell `zip`/`unzip`). MIDI port filtering in `midi_mac.py` is platform-aware.
